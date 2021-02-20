@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'buttongenerator.dart';
 import 'entities/instance.dart';
 
 void main() {
@@ -162,12 +163,14 @@ class _SecondScreen extends State<SecondScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      // Text(
-                      //   _instances[index].product,
-                      //   style: TextStyle(
-                      //     fontSize: 18,
-                      //   ),
-                      // ),
+                      if (_instances[index].dateFrom != null) 
+                        Text(
+                        'Дата: ${_instances[index].dateFrom}',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       Text(
                         'Склад: ${_instances[index].storage}',
                         style: TextStyle(
@@ -177,6 +180,14 @@ class _SecondScreen extends State<SecondScreen> {
                       ),
                       Text(
                         'Цена: ${_instances[index].price} руб.',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      if (_instances[index].dateTo != null)
+                      Text(
+                        'Дата отгрузки: до ${_instances[index].dateTo}',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -198,32 +209,5 @@ class _SecondScreen extends State<SecondScreen> {
           },
           itemCount: _instances.length,
         ));
-  }
-}
-
-class ButtonGenerator extends StatelessWidget {
-  final String name;
-  final String path;
-
-  ButtonGenerator({this.name, this.path});
-
-  @override
-  Widget build(BuildContext context) {
-    return FlatButton(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(50.0),
-      ),
-      child: Text(
-        '$name',
-        style: TextStyle(
-          // color: Colors.white,
-          fontSize: 20,
-        ),
-      ),
-      onPressed: () {
-        Navigator.pushNamed(context, '$path');
-      },
-      // color: Colors.yellow[700],
-    );
   }
 }
