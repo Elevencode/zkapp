@@ -5,8 +5,9 @@ class Instance {
   String storage;
   String price;
   String description;
+  bool isArchived;
 
-  Instance(this.product, this.storage, this.price, this.description);
+  Instance(this.dateFrom, this.dateTo, this.product, this.storage, this.price, this.description, this.isArchived);
 
   Instance.fromJson(Map<String, dynamic> json) {
     dateFrom = json['date_from'];
@@ -15,5 +16,6 @@ class Instance {
     storage = json['storage'];
     price = json['price'].toString();
     description = json['description'];
+    isArchived = json['is_archived'];
   }
 }
