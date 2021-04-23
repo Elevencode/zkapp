@@ -3,8 +3,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 import 'entities/instance.dart';
+
 class SecondScreen extends StatefulWidget {
   final String name;
 
@@ -41,6 +43,8 @@ class _SecondScreen extends State<SecondScreen> {
     super.initState();
   }
 
+  DateFormat formatter = DateFormat('dd.MM.yyyy');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +53,12 @@ class _SecondScreen extends State<SecondScreen> {
         ),
         body: ListView.builder(
           itemBuilder: (context, index) {
-            if (_instances[index].product == '${widget.name}' && _instances[index].isArchived == false) {
+            String formattedDateFrom =
+                formatter.format(_instances[index].dateFrom);
+            String formattedDateTo = formatter.format(_instances[index].dateTo);
+
+            if (_instances[index].product == '${widget.name}' &&
+                _instances[index].isArchived == false) {
               return Card(
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
@@ -58,7 +67,7 @@ class _SecondScreen extends State<SecondScreen> {
                     children: <Widget>[
                       if (_instances[index].dateFrom != null)
                         Text(
-                          'Дата: ${_instances[index].dateFrom}',
+                          'Дата: $formattedDateFrom',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -80,7 +89,7 @@ class _SecondScreen extends State<SecondScreen> {
                       ),
                       if (_instances[index].dateTo != null)
                         Text(
-                          'Дата отгрузки: до ${_instances[index].dateTo}',
+                          'Дата отгрузки: до $formattedDateTo',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
